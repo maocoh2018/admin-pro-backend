@@ -5,27 +5,26 @@ const cors = require('cors');
 
 const { dbConnection } = require('./database/config');
 
-//crear el servidor express
+// Crear el servidor de express
 const app = express();
 
-//Configurar CORS
-app.use(cors());
+// Configurar CORS
+app.use( cors() );
 
-//Base de datos
+// Lectura y parseo del body
+app.use( express.json() );
+
+// Base de datos
 dbConnection();
 
-//console.log(process.env);
 
-//Rutas
-app.get('/', (req, res) =>{ 
-    res.json({
-        ok:true,
-        msg:'Hola mundo'
-    });
+// Rutas
+app.use( '/api/usuarios', require('./routes/usuarios') );
+app.use( '/api/login', require('./routes/auth') );
 
+
+
+app.listen( process.env.PORT, () => {
+    console.log('Servidor corriendo en puerto ' + process.env.PORT );
 });
 
-
-app.listen(process.env.PORT, () =>{
-    console.log('Servidor corriendo ' + process.env.PORT);
-});
