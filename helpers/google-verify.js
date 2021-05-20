@@ -9,10 +9,7 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
         // Or, if multiple clients access the backend:
         //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
-    const payload = ticket.getPayload();
-    const userid = payload['sub'];
-
-    console.log(payload);
+    const payload = ticket.getPayload();    
     const {name, email, picture} = payload;
 
     return {name, email, picture};
